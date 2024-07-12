@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+        environment {
+        JAVA_HOME = tool name: 'JDK-17', type: 'jdk'
+    }
+    
+
     stages {
         stage('Checkout') {
             steps {
@@ -35,3 +40,4 @@ pipeline {
         }
     }
 }
+
