@@ -1,18 +1,24 @@
 pipeline {
-    agent any
-
+ agent any
+    
+    environment {
+        JAVA_HOME = tool name: 'JDK-17', type: 'jdk'
+    }
+    
     stages {
-        stage('Declarative: Checkout SCM') {
+        stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    checkout scm
+                }
             }
         }
+        
         stage('Build') {
             steps {
-                // Defina o caminho completo para o javac considerando o JDK 17 instalado
-              script {
-                    def javaHome = tool name: 'JDK-17', type: 'jdk'
-                    bat label: 'Compile Java sources', script: "${javaHome}/bin/javac -d target src/*.java"
+                script {
+                    bat script: "\"${env.JAVA_HOME}\\bin\\javac\" -d target src/**/*.java", 
+                        label: 'Compile Java classes'
                 }
             }
         }
@@ -21,6 +27,12 @@ pipeline {
                 // Comandos para rodar os testes JUnit no Windows
                 bat 'java -cp target;lib\\junit-4.12.jar org.junit.runner.JUnitCore [ProdutoBeanTest]'
             }
+        }
+    }
+
+      post {
+        always {
+            junit '**/target/surefire-reports/*.xml'
         }
     }
 }
