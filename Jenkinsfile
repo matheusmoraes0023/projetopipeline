@@ -27,7 +27,7 @@ pipeline {
                 // Inserir aqui os passos para testar o código Java
                 // Por exemplo:
                 // sh "\"${env.JAVA_HOME}/bin/java\" -cp target br.unicamp.inf335.Main"
-                 bat "\"${env.JAVA_HOME}\\bin\\java\" -cp target org.junit.runner.JUnitCore ProdutoBeanTest > target/test-report.xml"
+                    bat "\"${env.JAVA_HOME}\\bin\\java\" -cp \"target;lib/*\" org.junit.runner.JUnitCore br.unicamp.inf335.ProdutoBeanTest > target/test-report.xml"
             }
         }
     }
