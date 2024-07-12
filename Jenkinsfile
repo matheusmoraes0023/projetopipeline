@@ -1,5 +1,5 @@
 pipeline {
- agent any
+    agent any
     
     environment {
         JAVA_HOME = tool name: 'JDK-17', type: 'jdk'
@@ -17,22 +17,32 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    bat script: "\"${env.JAVA_HOME}\\bin\\javac\" -d target src/**/*.java", 
-                        label: 'Compile Java classes'
+                    // Compile Java classes
+                    bat "\"${env.JAVA_HOME}\\bin\\javac\" -d target src/*.java"
                 }
             }
         }
+        
         stage('Test') {
             steps {
-                // Comandos para rodar os testes JUnit no Windows
-                bat 'java -cp target;lib\\junit-4.12.jar org.junit.runner.JUnitCore [ProdutoBeanTest]'
+                script {
+                    // Run tests and generate reports
+                    bat "\"${env.JAVA_HOME}\\bin\\java\" -cp target org.junit.runner.JUnitCore ProdutoBeanTest > target/test-report.xml"
+                }
+            }
+            
+            post {
+                always {
+                    // Archive JUnit test results
+                    junit 'target/test-report.xml'
+                }
             }
         }
     }
-
-      post {
+    
+    post {
         always {
-            junit '**/target/surefire-reports/*.xml'
+            // Additional post-build actions if needed
         }
     }
 }
