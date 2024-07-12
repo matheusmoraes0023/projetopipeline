@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Comandos para rodar os testes JUnit no Windows
-                bat 'java -cp target;lib\\junit-4.12.jar org.junit.runner.JUnitCore [NomeDaClasseDeTeste]'
+                bat 'java -cp target;lib\\junit-4.12.jar org.junit.runner.JUnitCore [ProdutoBeanTest]'
             }
         }
     }
