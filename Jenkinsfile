@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Comandos para compilar o projeto no Windows
-                bat 'javac -d target src/**/*.java'
+                bat "C:\Program Files\Java\jdk-17\bin\javac" -d target src/**/*.java
             }
         }
         stage('Test') {
