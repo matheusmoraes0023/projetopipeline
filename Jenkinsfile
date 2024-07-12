@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     // Compile Java classes
-                    bat "\"${env.JAVA_HOME}\\bin\\javac\" -d target src/*.java"
+                    bat "\"${env.JAVA_HOME}\\bin\\javac\" -d target C:\\Users\\CLIENTE\\Desktop\\codigoTrabalho\\projetopipeline\\src\\**\\*.java"
                 }
             }
         }
@@ -39,5 +39,4 @@ pipeline {
             }
         }
     }
-
 }
