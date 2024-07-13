@@ -3,13 +3,17 @@ pipeline {
 
         environment {
         JAVA_HOME = tool name: 'JDK-17', type: 'jdk'
+        GITHUB_APP_ID = credentials('944144')
+        GITHUB_APP_KEY = credentials(' ff16150b40458883b7f10b527a62d2a0eca9522e ')
     }
     
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git url: 'https://github.com/matheusmoraes0023/projetopipeline', 
+                    credentialsId: '944144',
+                    branch: 'main'
             }
         }
         
